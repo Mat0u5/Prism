@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.function.BiFunction;
 
 import com.anthonyhilyard.prism.text.DynamicColor;
-
 import com.google.common.collect.Lists;
 
 import net.minecraft.network.chat.TextColor;
@@ -184,7 +183,7 @@ public class ConfigHelper
 				entries = Collections.unmodifiableList(list);
 				if (entries.get(0) instanceof String string)
 				{
-					duration = Float.parseFloat((String)entries.get(0));
+					duration = Float.parseFloat(string);
 				}
 				else if (entries.get(0) instanceof Number number)
 				{
@@ -251,7 +250,7 @@ public class ConfigHelper
 					{
 						colorString = colorString.replaceAll(".", "$0$0");
 					}
-					color = TextColor.parseColor("#" + colorString);
+					color = TextColor.parseColor("#" + colorString).result().orElse(null);
 				}
 				// This wasn't a color code, so try Minecraft colors and then web colors.
 				else

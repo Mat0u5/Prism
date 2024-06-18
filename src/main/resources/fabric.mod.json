@@ -25,10 +25,10 @@
 	],
 
 	"depends": {
-		"fabricloader": ">=0.14.8",
+		"fabricloader": ">=0.15.0",
 		"fabric": "*",
-		"minecraft": ">=1.18.2",
-		"java": ">=17"
+		"minecraft": ">=1.20.5",
+		"java": ">=21"
 	},
 	"custom": {
 		"modupdater": {
@@ -39,7 +39,8 @@
 		"modmenu": {
 			"links": {
 				"modmenu.discord": "https://discord.gg/S5NQjbXPnb"
-			}
+			},
+			"badges": [ "library" ]
 		}
 	}
 }

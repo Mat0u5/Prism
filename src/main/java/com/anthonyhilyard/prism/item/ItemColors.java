@@ -11,6 +11,7 @@ import java.util.List;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.util.FormattedCharSink;
@@ -83,7 +84,7 @@ public class ItemColors
 			Minecraft mc = Minecraft.getInstance();
 			try
 			{
-				List<Component> lines = item.getTooltipLines(mc.player, TooltipFlag.Default.ADVANCED);
+				List<Component> lines = item.getTooltipLines(TooltipContext.EMPTY, mc.player, TooltipFlag.Default.ADVANCED);
 				if (!lines.isEmpty() && lines.get(0).getStyle().getColor() != null)
 				{
 					result = lines.get(0).getStyle().getColor();

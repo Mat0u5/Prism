@@ -7,6 +7,7 @@ import com.anthonyhilyard.prism.util.ColorUtil;
 import com.anthonyhilyard.prism.util.IColor;
 import com.google.common.collect.Lists;
 
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.util.Mth;
 
@@ -208,9 +209,9 @@ public final class DynamicColor extends TextColor implements IColor
 		}
 	}
 
-	public void onRenderTick(float partialTick)
+	public void onRenderTick(DeltaTracker tracker)
 	{
-		timer += 1.0f / 20.0f;
+		timer += tracker.getRealtimeDeltaTicks() / 50.0f;
 		if (timer >= duration)
 		{
 			currentIndex = (currentIndex + 1) % values.size();

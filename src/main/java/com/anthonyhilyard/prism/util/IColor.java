@@ -1,6 +1,6 @@
 package com.anthonyhilyard.prism.util;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public interface IColor
 {
