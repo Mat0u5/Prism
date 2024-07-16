@@ -39,18 +39,18 @@ dependencies {
 }
 
 processResources {
-	inputs.property "modId", rootProject.modId
-	inputs.property "version", rootProject.version
-	inputs.property "displayName", rootProject.displayName
+	inputs.property "modId", project.modId
+	inputs.property "version", project.version
+	inputs.property "displayName", rootProject.name
 
 	filesMatching("META-INF/neoforge.mods.toml") {
 		expand (
-			modId: rootProject.modId,
-			version: rootProject.version,
-			displayName: rootProject.displayName
+			modId: project.modId,
+			version: project.version,
+			displayName: rootProject.name
 		)
 
-		filter { String line -> line.replace("[[modDependency]]", "[[dependencies.${rootProject.modId}]]") }
+		filter { String line -> line.replace("[[modDependency]]", "[[dependencies.${project.modId}]]") }
 	}
 	outputs.upToDateWhen { false }
 }

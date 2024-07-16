@@ -11,6 +11,7 @@ architectury {
 allprojects {
 	group = rootProject.group
 	version = rootProject.modVersion
+	modId = rootProject.modId
 }
 
 subprojects {
