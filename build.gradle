@@ -1,60 +1,48 @@
 plugins {
-	id 'fabric-loom' version '1.6-SNAPSHOT'
+	id 'dev.architectury.loom' version '1.6-SNAPSHOT' apply false
+	id 'architectury-plugin' version '3.4-SNAPSHOT'
+	id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
 }
 
-ext {
-	prop = new Properties()
+architectury {
+	minecraft = project.minecraftVersion
 }
 
-apply from: "evaluateprops.gradle"
-
-sourceCompatibility = JavaVersion.VERSION_21
-targetCompatibility = JavaVersion.VERSION_21
-
-archivesBaseName = project.name + '-' + project.mcVersion + '-fabric'
-
-sourceSets.main.java.srcDirs += 'java'
-sourceSets.main.resources.srcDirs += 'resources'
-
-dependencies {
-	minecraft "com.mojang:minecraft:${project.mcVersion}"
-	mappings loom.officialMojangMappings()
-	modImplementation "net.fabricmc:fabric-loader:${project.loaderVersion}"
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabricVersion}"
+allprojects {
+	group = rootProject.group
+	version = rootProject.modVersion
 }
 
-loom {
-	accessWidenerPath = file("src/main/resources/${project.name.toLowerCase()}.accesswidener")
-}
+subprojects {
+	apply plugin: 'dev.architectury.loom'
+	apply plugin: 'architectury-plugin'
 
-processResources {
-	inputs.property "modId", prop.modId
-	inputs.property "version", prop.version
-	inputs.property "displayName", prop.displayName
-
-	filesMatching("fabric.mod.json") {
-		expand (
-			modId: prop.modId,
-			version: prop.version,
-			displayName: prop.displayName
-		)
+	base {
+		archivesName = "$rootProject.name-$rootProject.minecraftVersion-$project.name"
 	}
-	outputs.upToDateWhen { false }
-}
 
-tasks.withType(JavaCompile).configureEach {
-	it.options.encoding = "UTF-8"
-	it.options.release = 21
-}
+	repositories {
+		maven {
+			name = "CurseMaven"
+			url = "https://www.cursemaven.com"
+		}
+	}
 
-jar {
-	manifest {
-		attributes(["Specification-Title":		prop.name,
-					"Specification-Vendor":		prop.author,
-					"Specification-Version":	prop.version,
-					"Implementation-Title":		prop.name,
-					"Implementation-Version":	prop.version,
-					"Implementation-Vendor" :	prop.author,
-					"Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")])
+	dependencies {
+		minecraft "net.minecraft:minecraft:$rootProject.minecraftVersion"
+		mappings loom.officialMojangMappings()
+	}
+
+	java {
+		sourceCompatibility = JavaVersion.VERSION_21
+		targetCompatibility = JavaVersion.VERSION_21
+	}
+
+	tasks.withType(JavaCompile).configureEach {
+		it.options.release = 21
+	}
+
+	remapJar {
+		destinationDirectory = file("$buildDir/../../output")
 	}
 }
