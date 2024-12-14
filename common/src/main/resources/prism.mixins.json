@@ -9,6 +9,6 @@
 	"injectors": {
 		"defaultRequire": 1
 	},
-	"minVersion": "0.8.5",
+	"minVersion": "0.8.7",
 	"target": "@env(DEFAULT)"
 }

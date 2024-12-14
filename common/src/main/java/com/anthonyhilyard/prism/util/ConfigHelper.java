@@ -70,10 +70,14 @@ public class ConfigHelper
 		}
 	}
 
+	public static TextColor applyModifiers(List<String> modifiers, int color)
+	{
+		return TextColor.fromRgb(applyModifiers(modifiers, DynamicColor.fromRgb(color)).getValue());
+	}
 
 	public static TextColor applyModifiers(List<String> modifiers, TextColor color)
 	{
-		return TextColor.fromRgb(applyModifiers(modifiers, DynamicColor.fromRgb(color.getValue())).getValue());
+		return applyModifiers(modifiers, color.getValue());
 	}
 
 	public static DynamicColor applyModifiers(List<String> modifiers, DynamicColor color)

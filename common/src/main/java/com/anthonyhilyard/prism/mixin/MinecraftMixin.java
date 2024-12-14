@@ -18,6 +18,6 @@ public class MinecraftMixin
 	public void runTick(boolean tickWorld, CallbackInfo callbackInfo)
 	{
 		Minecraft instance = (Minecraft)(Object)this;
-		RenderTickEvent.START.invoker().onStart(instance.getTimer());
+		RenderTickEvent.START.invoker().onStart(instance.getDeltaTracker());
 	}
 }

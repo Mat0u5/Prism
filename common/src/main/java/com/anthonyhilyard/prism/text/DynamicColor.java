@@ -100,7 +100,7 @@ public final class DynamicColor extends TextColor implements IColor
 
 	public static DynamicColor fromAHSV(float alpha, float hue, float saturation, float value)
 	{
-		return fromAHSV((int)(alpha * 255 + 0.5f), (int)(hue * 255 + 0.5f), (int)(saturation * 255 + 0.5f), (int)(value * 255 + 0.5f));
+		return fromAHSV((int)(alpha * 255 + 0.5f), (int)(hue * 360 + 0.5f), (int)(saturation * 255 + 0.5f), (int)(value * 255 + 0.5f));
 	}
 
 	public static DynamicColor fromAHSV(int alpha, int hue, int saturation, int value)
@@ -157,6 +157,12 @@ public final class DynamicColor extends TextColor implements IColor
 	public boolean isAnimated()
 	{
 		return values.size() > 1 && duration > 0;
+	}
+
+	@Override
+	public int getValue()
+	{
+		return getIntValue();
 	}
 
 	@Override

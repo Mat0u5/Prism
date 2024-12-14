@@ -1,9 +1,10 @@
 plugins {
-	id 'com.github.johnrengelman.shadow'
+	id 'io.github.goooler.shadow'
 }
 
 loom {
 	forge {
+		mixinConfig "prism.mixins.json"
 	}
 }
 
@@ -37,15 +38,15 @@ dependencies {
 }
 
 processResources {
-	inputs.property "modId", rootProject.modId
-	inputs.property "version", rootProject.version
-	inputs.property "displayName", rootProject.displayName
+	inputs.property "modId", project.modId
+	inputs.property "version", project.version
+	inputs.property "displayName", rootProject.name
 
 	filesMatching("META-INF/mods.toml") {
 		expand (
-			modId: rootProject.modId,
-			version: rootProject.version,
-			displayName: rootProject.displayName
+			modId: project.modId,
+			version: project.version,
+			displayName: rootProject.name
 		)
 
 		filter { String line -> line.replace("[[modDependency]]", "[[dependencies.${rootProject.modId}]]") }
@@ -53,57 +54,11 @@ processResources {
 	outputs.upToDateWhen { false }
 }
 
-import dev.architectury.loom.extensions.ModBuildExtensions
-
 shadowJar {
 	configurations = [project.configurations.shadowBundle]
-	archiveClassifier = ""
-	destinationDirectory = file("$buildDir/../../output")
-
-	// Forge is broken in this version of the Architectury plugin, so we have to manually
-	// convert the access widener to an access transformer.
-	doLast {
-		if (gradle.startParameter.taskNames.contains('build') && !gradle.startParameter.refreshDependencies)
-		{
-			def remapJarTask = tasks.findByPath('remapJar')
-			if (remapJarTask)
-			{
-				def uuidProperty = project.objects.property(String)
-				uuidProperty.set(getMappingBuildServiceUuid())
-
-				ModBuildExtensions.convertAwToAt(remapJarTask.atAccessWideners, archiveFile.get().getAsFile().toPath(), uuidProperty)
-			}
-		}
-	}
 }
 
 remapJar {
-	enabled = false
 	input.set shadowJar.archiveFile
 	atAccessWideners.add('prism.accesswidener')
-}
-
-import net.fabricmc.loom.task.RemapJarTask
-import net.fabricmc.loom.util.service.UnsafeWorkQueueHelper
-import net.fabricmc.loom.task.service.MappingsService
-
-def getMappingBuildServiceUuid()
-{
-	def remapJarTask = tasks.findByPath('remapJar')
-	if (remapJarTask)
-	{
-		def serviceManagerField = RemapJarTask.getDeclaredField("serviceManagerProvider")
-		serviceManagerField.setAccessible(true)
-		def serviceManagerProvider = serviceManagerField.get(remapJarTask)
-
-		return UnsafeWorkQueueHelper.create(
-				MappingsService.createDefault(
-					project,
-					serviceManagerProvider.get().get(),
-					"named", "named"
-				)
-			)
-	}
-
-	return null
 }
