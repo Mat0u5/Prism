@@ -12,9 +12,7 @@ import net.minecraft.client.Minecraft;
 @Mixin(Minecraft.class)
 public class MinecraftMixin
 {
-	@SuppressWarnings("resource")
-	@Inject(method = "runTick", at = @At(value = "INVOKE_STRING", target = "Lnet/minecraft/util/profiling/ProfilerFiller;popPush(Ljava/lang/String;)V",
-		args = { "ldc=gameRenderer" }), require = 1)
+	@Inject(method = "runTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiling/ProfilerFiller;popPush(Ljava/lang/String;)V"))
 	public void runTick(boolean tickWorld, CallbackInfo callbackInfo)
 	{
 		Minecraft instance = (Minecraft)(Object)this;
