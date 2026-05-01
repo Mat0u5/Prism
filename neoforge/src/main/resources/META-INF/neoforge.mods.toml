@@ -22,7 +22,7 @@ description='''A library all about color! Provides lots of color-related functio
 [[modDependency]]
 	modId="minecraft"
 	type="required"
-	versionRange="[1.21.3,)"
+	versionRange="[1.21.11]"
 	ordering="NONE"
 	side="BOTH"
 
