@@ -6,6 +6,7 @@
 	"name": "${displayName}",
 	"description": "A library all about color! Provides lots of color-related functionality for dependent mods.",
 	"authors": [ "Grend" ],
+	"contributors": [ "Mat0u5" ],
 	"contact": {
 		"homepage": "https://anthonyhilyard.com/",
 		"sources": "https://github.com/AHilyard/Prism",
