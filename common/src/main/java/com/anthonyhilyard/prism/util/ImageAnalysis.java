@@ -12,7 +12,7 @@ import com.google.common.collect.Maps;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.network.chat.TextColor;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceManager;
 
 public class ImageAnalysis
@@ -23,7 +23,7 @@ public class ImageAnalysis
 	 * @param region The region of the image to use, or null for the whole image.
 	 * @return The TextColor representation of the most dominant color in the image, or null if an error occurred.
 	 */
-	public static TextColor getDominantColor(ResourceLocation imageLocation, Rect2i region)
+	public static TextColor getDominantColor(Identifier imageLocation, Rect2i region)
 	{
 		// First, load the resource and make sure it's a valid image.
 		Minecraft minecraft = Minecraft.getInstance();

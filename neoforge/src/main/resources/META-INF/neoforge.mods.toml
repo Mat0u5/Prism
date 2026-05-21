@@ -9,20 +9,20 @@ displayName="${displayName}"
 displayURL="https://anthonyhilyard.com/"
 updateJSONURL="https://mc-update-check.anthonyhilyard.com/638111"
 logoFile="icon.png"
-authors="Grend"
+authors="Grend, Mat0u5"
 description='''A library all about color! Provides lots of color-related functionality for dependent mods.'''
 
 [[modDependency]]
 	modId="neoforge"
 	type="required"
-	versionRange="[21.3.0,)"
+	versionRange="[21.11.42,)"
 	ordering="NONE"
 	side="BOTH"
 
 [[modDependency]]
 	modId="minecraft"
 	type="required"
-	versionRange="[1.21.3,)"
+	versionRange="[1.21.11]"
 	ordering="NONE"
 	side="BOTH"
 
