@@ -62,7 +62,7 @@ shadowJar {
 
 	manifest {
 		attributes(
-				'MixinConfigs': 'prism.mixins.json,prism.forge.mixins.json'
+				'MixinConfigs': 'prism.mixins.json'
 		)
 	}
 
