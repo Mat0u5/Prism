@@ -1,11 +1,5 @@
 plugins {
-	id 'io.github.goooler.shadow'
-}
-
-loom {
-	forge {
-		mixinConfig "prism.mixins.json"
-	}
+	id 'com.gradleup.shadow'
 }
 
 architectury {
@@ -33,7 +27,7 @@ configurations {
 dependencies {
 	forge "net.minecraftforge:forge:$rootProject.forgeVersion"
 
-	common(project(path: ':common', configuration: 'namedElements')) { transitive false }
+	common(project(path: ":common")) { transitive false }
 	shadowBundle project(path: ':common', configuration: 'transformProductionForge')
 }
 
@@ -54,11 +48,23 @@ processResources {
 	outputs.upToDateWhen { false }
 }
 
-shadowJar {
-	configurations = [project.configurations.shadowBundle]
+jar {
+	archiveClassifier = 'raw'
 }
 
-remapJar {
-	input.set shadowJar.archiveFile
-	atAccessWideners.add('prism.accesswidener')
+shadowJar {
+	dependsOn(jar)
+	mainSpec.sourcePaths.clear()
+	from(zipTree(jar.archiveFile))
+
+	configurations = [project.configurations.shadowBundle]
+	archiveClassifier = null
+
+	manifest {
+		attributes(
+				'MixinConfigs': 'prism.mixins.json,prism.forge.mixins.json'
+		)
+	}
+
+	destinationDirectory = file("$buildDir/../../output")
 }
