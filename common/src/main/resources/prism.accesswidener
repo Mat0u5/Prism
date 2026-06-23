@@ -1,4 +1,4 @@
-accessWidener	v1	named
+accessWidener	v2 official
 extendable	class	net/minecraft/network/chat/TextColor
 extendable	method	net/minecraft/network/chat/TextColor	<init>	(I)V
 extendable	method	net/minecraft/network/chat/TextColor	<init>	(ILjava/lang/String;)V

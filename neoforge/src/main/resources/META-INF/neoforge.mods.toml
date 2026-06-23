@@ -15,14 +15,14 @@ description='''A library all about color! Provides lots of color-related functio
 [[modDependency]]
 	modId="neoforge"
 	type="required"
-	versionRange="[21.11.42,)"
+	versionRange="[26.1,)"
 	ordering="NONE"
 	side="BOTH"
 
 [[modDependency]]
 	modId="minecraft"
 	type="required"
-	versionRange="[1.21.11]"
+	versionRange="[26.1,)"
 	ordering="NONE"
 	side="BOTH"
 
